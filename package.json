@@ -1,0 +1,14 @@
+{
+  "name": "browser-auto-task",
+  "version": "0.0.1",
+  "description": "Automate tasks on browser",
+  "author": "PercyPham <hungpm.percy@gmail.com>",
+  "license": "UNLICENSED",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "puppeteer": "^1.14.0"
+  }
+}
