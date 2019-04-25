@@ -1,6 +1,6 @@
-/* eslint-disable no-plusplus */
 import convertRawPriceTextToNumber from './utils/convertRawPriceTextToNumber';
 import waitForResponseFromSpecificRequestUrl from './utils/waitForResponseFromSpecificRequestUrl';
+import getElementValueFromPage from './utils/getElementValueFromPage';
 
 const selectAddressFromList = async (productPage, addressName) => {
   const listSelector = '.location-list__item.automation-location-list-item';
@@ -8,7 +8,7 @@ const selectAddressFromList = async (productPage, addressName) => {
   await productPage.$$eval(
     listSelector,
     (elements, passedAddressName) => {
-      for (let i = 0; i < elements.length; i++) {
+      for (let i = 0; i < elements.length; i += 1) {
         if (elements[i].innerHTML === passedAddressName) {
           elements[i].click();
           break;
@@ -37,21 +37,22 @@ const selectLevel3Address = async (productPage, addessLevel3) => {
 
 const waitForNewShippingFeeToShowUp = async productPage => {
   const newShippingFeeRequestUrl = 'https://pdpdesc-m.lazada.vn/pcdetailSync';
-  await waitForResponseFromSpecificRequestUrl(productPage, newShippingFeeRequestUrl);
+  const checkResponse = responseText => !!responseText;
+  await waitForResponseFromSpecificRequestUrl(productPage, newShippingFeeRequestUrl, checkResponse);
 };
 
 const getStandardShippingFeeFromPage = async productPage => {
   const standardShippingFeeSelector =
     '.delivery__option .delivery-option-item_type_standard .delivery-option-item__body .delivery-option-item__shipping-fee';
-  const standardShippingFeeRawText = await productPage.$eval(
-    standardShippingFeeSelector,
-    el => el.innerHTML
+  const standardShippingFeeRawText = await getElementValueFromPage(
+    productPage,
+    standardShippingFeeSelector
   );
   const standardShippingFee = convertRawPriceTextToNumber(standardShippingFeeRawText);
   return standardShippingFee;
 };
 
-const getStandardShippingFeeFromPageAndAddress = async (productPage, shippingAddress) => {
+const getStandardShippingFeeFromPageWithAddress = async (productPage, shippingAddress) => {
   const changeLocationButtonSelector = '.location-link';
   await productPage.click(changeLocationButtonSelector);
 
@@ -65,4 +66,4 @@ const getStandardShippingFeeFromPageAndAddress = async (productPage, shippingAdd
   return standardShippingFee;
 };
 
-export default getStandardShippingFeeFromPageAndAddress;
+export default getStandardShippingFeeFromPageWithAddress;
