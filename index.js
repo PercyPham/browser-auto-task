@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import getProductPrice from './src/getProductPrice';
+import getProductInfos from './src/getProductInfos';
 
 (async () => {
   const browser = await puppeteer.launch();
@@ -14,7 +14,7 @@ import getProductPrice from './src/getProductPrice';
     }
   };
 
-  const result = await getProductPrice(browser, product);
+  const result = await getProductInfos(browser, product);
   console.log(result);
 
   await browser.close();

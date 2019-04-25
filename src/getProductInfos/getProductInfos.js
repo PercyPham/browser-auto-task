@@ -1,7 +1,7 @@
 import getProductPriceFromPage from './getProductPriceFromPage';
 import getStandardShippingFeeFromPageAndAddress from './getStandardShippingFeeFromPageAndAddress';
 
-const getProductPrice = async (browser, { productLink, shippingAddress }) => {
+const getProductInfos = async (browser, { productLink, shippingAddress }) => {
   const productPage = await browser.newPage();
   await productPage.goto(productLink);
 
@@ -14,4 +14,4 @@ const getProductPrice = async (browser, { productLink, shippingAddress }) => {
   return { productPrice, shippingFee, totalPrice };
 };
 
-export default getProductPrice;
+export default getProductInfos;
