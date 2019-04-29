@@ -2,6 +2,17 @@ import convertRawPriceTextToNumber from './utils/convertRawPriceTextToNumber';
 import waitForResponseFromSpecificRequestUrl from './utils/waitForResponseFromSpecificRequestUrl';
 import getElementValueFromPage from './utils/getElementValueFromPage';
 
+const dismissForeignShippingWarningIfHad = async productPage => {
+  const titleSelector = '.location__address';
+  await productPage.waitFor(titleSelector);
+  await productPage.click(titleSelector);
+};
+
+const clickOnChangeLocationButton = async productPage => {
+  const changeLocationButtonSelector = '.location-link';
+  await productPage.click(changeLocationButtonSelector);
+};
+
 const selectAddressFromList = async (productPage, addressName) => {
   const listSelector = '.location-list__item.automation-location-list-item';
   await productPage.waitFor(listSelector);
@@ -53,8 +64,9 @@ const getStandardShippingFeeFromPage = async productPage => {
 };
 
 const getStandardShippingFeeFromPageWithAddress = async (productPage, shippingAddress) => {
-  const changeLocationButtonSelector = '.location-link';
-  await productPage.click(changeLocationButtonSelector);
+  await dismissForeignShippingWarningIfHad(productPage);
+
+  await clickOnChangeLocationButton(productPage);
 
   await selectLevel1Address(productPage, shippingAddress.level1);
   await selectLevel2Address(productPage, shippingAddress.level2);
