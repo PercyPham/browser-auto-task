@@ -2,7 +2,7 @@ import getProductPriceFromPage from './getProductPriceFromPage';
 import getStandardShippingFeeFromPageWithAddress from './getStandardShippingFeeFromPageWithAddress';
 import openNewPage from '../utils/openNewPage';
 
-const getInfosFromPage = async (productPage, { shippingAddress }) => {
+const getInfosFromPage = async (productPage, shippingAddress) => {
   const infos = {};
 
   infos.productPrice = await getProductPriceFromPage(productPage);
@@ -11,9 +11,9 @@ const getInfosFromPage = async (productPage, { shippingAddress }) => {
   return infos;
 };
 
-const getProductInfos = async (browser, options) => {
-  const productPage = await openNewPage(browser, options.productUrl);
-  const infos = await getInfosFromPage(productPage, options);
+const getProductInfos = async (browser, productUrl, shippingAddress) => {
+  const productPage = await openNewPage(browser, productUrl);
+  const infos = await getInfosFromPage(productPage, shippingAddress);
   await productPage.close();
   return infos;
 };
