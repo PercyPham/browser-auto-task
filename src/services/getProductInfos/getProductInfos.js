@@ -1,6 +1,6 @@
 import getProductPriceFromPage from './getProductPriceFromPage';
 import getStandardShippingFeeFromPageWithAddress from './getStandardShippingFeeFromPageWithAddress';
-import openNewPage from '../utils/openNewPage';
+import openNewPage from '../../utils/openNewPage';
 
 const getInfosFromPage = async (productPage, shippingAddress) => {
   const infos = {};

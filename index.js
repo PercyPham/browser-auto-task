@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import getProductInfos from './src/getProductInfos';
+import getProductInfos from './src/services/getProductInfos';
 import openNewBrowser from './src/utils/openNewBrowser';
 
 (async () => {
