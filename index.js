@@ -1,8 +1,9 @@
 import puppeteer from 'puppeteer';
 import getProductInfos from './src/getProductInfos';
+import openNewBrowser from './src/utils/openNewBrowser';
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await openNewBrowser();
 
   const options = {
     productUrl:
